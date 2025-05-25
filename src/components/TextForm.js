@@ -20,11 +20,15 @@ export default function TextForm(props) {
   const handleUpClick = () => {
     saveToHistory(Text);
     setText(Text.toUpperCase());
+  props.showAlert("Converted to Uppercase!","success")
+
   };
 
   const handleLoClick = () => {
     saveToHistory(Text);
     setText(Text.toLowerCase());
+  props.showAlert("Converted to Lowercase!","success")
+
   };
 
   const handleCapitalize = () => {
@@ -39,26 +43,33 @@ export default function TextForm(props) {
     saveToHistory(Text);
     let newText = Text.replace(/\s+/g, ' ').trim();
     setText(newText);
+  props.showAlert("Removed extra spaces!","success")
+
   };
 
   const handleReverseText = () => {
     saveToHistory(Text);
     setText(Text.split('').reverse().join(''));
+  props.showAlert("Texts are reversed!","success")
+
   };
 
   const handleReverseWords = () => {
     saveToHistory(Text);
     setText(Text.split(' ').reverse().join(' '));
+  props.showAlert("Words are reversed!","success")
+
   };
 
   const handleClearText = () => {
     saveToHistory(Text);
     setText("");
+    
   }
 
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(Text);
-    alert("Copied to clipboard!");
+    props.showAlert("Copied to clipboard!","Success");
   };
 
   const handleUndo = () => {
@@ -82,11 +93,15 @@ export default function TextForm(props) {
   const handleSortAsc = () => {
   let words = Text.trim().split(/\s+/).sort((a, b) => a.localeCompare(b));
   setText(words.join(' '));
+  props.showAlert("Sorted into Ascending Order!","success")
+
 };
 
 const handleSortDesc = () => {
   let words = Text.trim().split(/\s+/).sort((a, b) => b.localeCompare(a));
   setText(words.join(' '));
+  props.showAlert("Sorted into Descending Order!","success")
+
 };
 
 const handleGrammarCheck = async () => {
@@ -103,10 +118,12 @@ const handleGrammarCheck = async () => {
 
   const data = await res.json();
   if (data.matches.length === 0) {
-    alert("No issues found!");
+    props.showAlert("No issues found!","success");
   } else {
     let suggestions = data.matches.map(m => `✏️ ${m.message} → Suggestion: ${m.replacements[0]?.value || 'N/A'}`);
+    props.showAlert("Check Grammer", "Warning")
     alert(suggestions.join('\n\n'));
+    
   }
 };
 
@@ -116,12 +133,15 @@ const handleExportTXT = () => {
   element.href = URL.createObjectURL(file);
   element.download = "AksharText.txt";
   element.click();
+  props.showAlert("Exported Text as TXT","success")
+
 };
 
 const handleExportPDF = () => {
   const doc = new jsPDF();
   doc.text(Text, 10, 10);
   doc.save("AksharText.pdf");
+  props.showAlert("Exported Text as PDF","success")
 };
 
   const wordCount = Text.trim() === '' ? 0 : Text.trim().split(/\s+/).length;
