@@ -192,7 +192,7 @@ const handleExportPDF = () => {
         <p><strong>{characterCount}</strong> characters</p>
         <p><strong>{sentenceCount}</strong> sentences</p>
         <p><strong>{paragraphCount}</strong> paragraphs</p>
-        <p>{0.008 * wordCount} Minutes read</p>
+        <p><strong>{0.008 * wordCount}</strong> Minutes read</p>
         <h2>Preview</h2>
         <p>{Text}</p>
         <button className="btn btn-outline-warning mx-1" onClick={handleExportTXT}>Export as TXT</button>
